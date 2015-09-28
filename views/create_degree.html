@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Create Degree Program</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<header>
+			<h1>Create a Degree Program</h1>
+		</header>
+
+		<!-- We will use this later for links. -->
+		<nav>
+			<a href="http://localhost:5000/students">Retrieve Students</a>
+			<a href="http://localhost:5000/degree-programs">Retrieve Degrees</a>
+		</nav>
+
+		<form method="post" action="http://localhost:5000/degree-programs">
+			<input type="text" name="code" placeholder="Degree Code"/><br/>
+			<input type="text" name="name" placeholder="Description"/><br/>
+			<input type="submit"/>
+		</form>
+
+		<footer>&copy; 2015</footer>
+
+	</body>
+</html>
