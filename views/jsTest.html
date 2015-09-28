@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Get Grade</title>
+	<meta charset="utf-8" />
+</head>
+
+<body>
+	<p>Please input grade:</p>
+	<input type="text" id="demo1" />
+	<input type="button" onclick="getStatus()" value="Get Status" />
+	<div id="message"></div>
+
+	<script>
+		function getStatus() {
+			var grade = document.getElementById("demo1").value;
+
+			// Syntax: condition ? expr1 : expr2
+			var status = (Number(grade) >= 55) ? "Pass" : "Fail";
+			
+			document.getElementById("message").innerHTML = status;
+		}
+	</script>
+</body>
+</html>
