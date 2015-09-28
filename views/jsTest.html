@@ -15,7 +15,7 @@
 		Click me! <br />
 	</a>
 
-	<input type="button" onclick="enterNumber()" value="Input a number" />
+	<input type="button" onclick="guessNumber()" value="Guess a number" />
 
 	<script>
 		function getStatus() {
@@ -27,7 +27,7 @@
 			document.getElementById("message").innerHTML = status;
 		}
 
-		function enterNumber(){
+		function guessNumber(){
 			var x = prompt("Enter a number");
 
 			try{
