@@ -27,22 +27,36 @@
 			document.getElementById("message").innerHTML = status;
 		}
 
+		/**
+			JavaScript Function that lets a user guess for a random number
+			by prompting a user to input a number.
+		**/
 		function guessNumber(){
-			var x = prompt("Enter a number");
+			// Generate a random number to be guessed by the user.
+			guess = Math.floor(Math.random()*100);
 
-			try{
-				if(x == "") throw "empty";
-				if(isNaN(x)) throw "not a number";
-				x = Number(x);
-				if(x<5) throw "too low";
-				if(x>10) throw "too high";
+			do{
+				// ask the user for a number
+				var x = prompt("Enter a number");
+
+				try{
+					//check if user entered a number
+					if(x == "") throw "empty";
+
+					//check if input is a number
+					if(isNaN(x)) throw "not a number";
+					
+					x = Number(x);
+					if(x<guess) throw "higher!";
+					if(x>guess) throw "lower!";
+				}
+				catch(err){
+					alert("Input is "+err);
+				}
 			}
-			catch(err){
-				alert("Input is "+err);
-			}
-			finally{
-				alert("End of Try-Catch statement.");
-			}
+			while(x!=guess);
+
+			if(x==guess) alert("Your guess is correct! The value is "+guess+".");
 		}
 
 	</script>
