@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="author" content="Betel de Robles" />
+		<title> JS Example </title>
+		<script src="./data.js"></script>
+	</head>
+	<body>
+		<header> <h1>Movies</h1> </header>
+		<div id="content"> </div>
+
+		<script type="text/javascript">
+			
+			var perPage = 3;				// Items shown per page
+			var totalPages = Math.ceil(movies.length / perPage);
+			var section = document.getElementById("content");
+			
+			showContent(temp={id:1});			// Initial content of page
+
+			// LINK TO WISHLIST
+			var w = document.createElement("a");
+			var wvalue = document.createTextNode("Wishlist");
+			w.appendChild(wvalue);
+			w.onclick = function(){
+				if(typeof(Storage) !== "undefined") {
+					//alert(wishlist);
+					sessionStorage.list = JSON.stringify(wishlist);
+				} else {
+					document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage.";
+				}
+				
+				//var x = document.cookie = "list="+temp+"; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+				//alert(x);
+			};
+			w.href = "./wishlist.html";
+			document.body.appendChild(w);
+
+			// PAGINATION
+			var pag = document.createElement("p");
+			for(i=0; i<totalPages; i++) {
+				link = document.createElement("a");
+				lvalue = document.createTextNode(i+1);
+				link.id = i+1;
+				link.href = "javascript:void(0)";
+				link.onclick = function(){
+					section.innerHTML = "";
+					showContent(this);
+				};
+				link.appendChild(lvalue);
+				pag.appendChild(link);
+			}
+			document.body.appendChild(pag);
+
+			function containsObject(obj, list){
+			    var i;
+			    for (i = 0; i < list.length; i++) {
+			        if (list[i] === obj) {
+			            return true;
+			        }
+			    }
+			    return false;
+			}
+			
+			function showContent(id){
+				var i = id.id;
+				var temp = movies.slice();
+				var list = temp.splice(perPage*(i-1),perPage);
+				
+				list.forEach(function(movie) {
+					// TITLE (YEAR)
+					var title = document.createElement("p");
+					var tvalue = document.createTextNode(movie.title + " (" + movie.year + ")");
+					title.appendChild(tvalue);
+					section.appendChild(title);
+					
+					// IMAGE
+					var image = document.createElement("img");
+					image.src = movie.imgURL;
+					image.alt = movie.title;
+					section.appendChild(image);
+					
+					// DESCRIPTION
+					var desc = document.createElement("p");
+					var dvalue = document.createTextNode(movie.description);
+					desc.appendChild(dvalue);
+					section.appendChild(desc);
+					
+					// RATING
+					var rat = document.createElement("p");
+					var rvalue = document.createTextNode("Rating: " + movie.rating);
+					rat.appendChild(rvalue);
+					section.appendChild(rat);
+					
+					// CLASSIFICATION
+					var clas = document.createElement("p");
+					var temp= "Genre: ";
+					for(var i=0; i<(movie.classification).length; i++) {
+						temp += movie.classification[i] + ", ";
+					}
+					temp = temp.substring(0, temp.length - 2);
+					var cvalue = document.createTextNode(temp);
+					clas.appendChild(cvalue);
+					section.appendChild(clas);
+
+					// ADD TO WISHLIST BUTTON
+					var btn = document.createElement("input");
+					btn.type = "button";
+					btn.value = "+";
+					btn.onclick = function(){
+						if(! containsObject(movie, wishlist)){
+							wishlist.push(movie);
+							alert(movie.title + " is added to your wishlist");
+						}
+					};
+					section.appendChild(btn);
+				});
+			}
+		</script>
+	</body>
+</html>
